@@ -1,0 +1,97 @@
+<view class="page">
+  <!-- 内容区：画布 + 提示，垂直居中，占工具栏上方剩余空间 -->
+  <view class="canvas-area">
+    <!-- 画布：显示背景 + 人像 + 尺寸框 + mm标注，支持拖动/缩放 -->
+    <view class="canvas-wrap">
+      <canvas
+        type="2d"
+        id="editCanvas"
+        class="edit-canvas"
+        style="width:{{canvasW}}px;height:{{canvasH}}px;"
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+        bindtouchcancel="onTouchEnd"
+      ></canvas>
+    </view>
+
+    <!-- 提示 -->
+    <view class="tips" wx:if="{{!hasImage}}">照片加载中…</view>
+    <view class="tips" wx:elif="{{mattingBusy}}">AI 云端抠图中，请稍候（首次需 5~15 秒）…</view>
+    <view class="tips" wx:elif="{{mattingMode}}">可拖动/缩放人像调整位置 · 底部切换底色</view>
+    <view class="tips" wx:elif="{{mattingFailed}}">自动抠图未成功 · 可切换底色或重新选图</view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="toolbar" wx:if="{{hasImage}}">
+    <!-- 规格选择：切规格即改尺寸框真实比例 -->
+    <view class="row">
+      <view class="row-label">规格</view>
+      <scroll-view
+        scroll-x
+        class="spec-scroll"
+        scroll-into-view="{{specScrollIntoView}}"
+        scroll-with-animation
+      >
+        <view
+          wx:for="{{specs}}"
+          wx:key="id"
+          class="spec-chip {{selectedSpecId === item.id ? 'active' : ''}}"
+          id="{{item.id}}"
+          data-id="{{item.id}}"
+          bindtap="onSelectSpec"
+        >{{item.name}}</view>
+      </scroll-view>
+    </view>
+    <!-- 当前规格：像素 宽×高（替代原来"当前比例 A : B"） -->
+    <view class="ratio-tip">{{specRatioLabel}}</view>
+
+    <!-- 底色选择 -->
+    <view class="row">
+      <view class="row-label">底色</view>
+      <view
+        wx:for="{{bgColors}}"
+        wx:key="name"
+        class="color-swatch {{selectedBgIdx === index ? 'active' : ''}}"
+        style="background:rgb({{item.r}},{{item.g}},{{item.b}});"
+        data-bg="{{item.name}}"
+        bindtap="onSelectColor"
+      ></view>
+    </view>
+
+    <!-- AI 抠图（默认云端高精度模式） -->
+    <view class="row ai-row">
+      <button
+        class="btn-ai"
+        bindtap="onStartMatting"
+        loading="{{mattingBusy}}"
+        disabled="{{mattingBusy}}"
+      >
+        <text class="ai-text">一键抠图</text>
+      </button>
+      <view class="ai-tip" wx:if="{{!mattingMode && !mattingBusy}}">点击启用云端人像分割（西装/衬衫/头发完整保护）</view>
+      <view class="ai-tip ok" wx:elif="{{mattingMode}}">✅ 当前已是透明人像，可直接切换下方底色</view>
+    </view>
+
+    <!-- 重新选图（独立一行，不拥挤） -->
+    <view class="row">
+      <button class="btn-ghost reselect" bindtap="onReselect">🖼️ 重新选图</button>
+    </view>
+
+    <view class="row actions">
+      <button class="btn-ghost" bindtap="onReset">重置位置</button>
+      <button class="btn-primary-small" bindtap="onSave">
+        <view class="save-main">保存证件照</view>
+        <view class="save-sub">常规用途使用</view>
+      </button>
+    </view>
+
+    <!-- 保存用途提示（2026-09-06）：避免用户误以为"保存证件照"不够好，实际日常使用/冲印标准已足够 -->
+    <view class="save-hint">如需高分辨率大图可点下方「原图高清画质」</view>
+
+    <!-- 原图高清画质：跳专页，基于上传原图 + BiRefNet 抠图说明，导出高分辨率大图 -->
+    <view class="row">
+      <button class="btn-ghost reselect" bindtap="onOpenOriginal">🖼️ 原图高清画质</button>
+    </view>
+  </view>
+</view>

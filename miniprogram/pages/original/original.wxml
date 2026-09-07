@@ -1,0 +1,65 @@
+<view class="page">
+  <!-- 预览区：canvas 常驻渲染(不受 wx:if 控制)，避免查询时节点不存在导致加载失败；
+       hasImage 只控制提示/面板 -->
+  <view class="preview-area">
+    <canvas
+      type="2d"
+      id="origCanvas"
+      class="orig-canvas"
+      style="width:{{canvasW}}px;height:{{canvasH}}px;"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd"
+      bindtouchcancel="onTouchEnd"
+    ></canvas>
+    <view class="preview-tip" wx:if="{{hasImage && mattingBusy}}">AI 云端抠图中，首次需 5~15 秒…</view>
+    <view class="preview-tip" wx:elif="{{hasImage && mattingMode}}">可双指缩放·拖动微调 · 导出按原图清晰度</view>
+    <view class="preview-tip" wx:elif="{{hasImage}}">原图加载完成 · 选择规格打分底色下载</view>
+  </view>
+  <view class="tips" wx:if="{{!hasImage}}">照片加载中…</view>
+
+  <!-- 规格选择：同 edit 语义，初始继承进入时选中的规格 -->
+  <view class="panel" wx:if="{{hasImage}}">
+    <view class="panel-label">规格</view>
+    <scroll-view scroll-x class="spec-scroll">
+      <view
+        wx:for="{{specs}}"
+        wx:key="id"
+        class="spec-chip {{selectedSpecId === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onSelectSpec"
+      >{{item.name}}</view>
+    </scroll-view>
+    <view class="ratio-tip">{{specRatioLabel}}</view>
+  </view>
+
+  <!-- 底色选择：8 预设，初始继承进入时选中 -->
+  <view class="panel" wx:if="{{hasImage}}">
+    <view class="panel-label">底色</view>
+    <view class="color-row">
+      <view
+        wx:for="{{bgColors}}"
+        wx:key="idx"
+        class="color-block {{selectedBgIdx === index ? 'active' : ''}}"
+        style="background:{{item.hex}}"
+        data-idx="{{index}}"
+        bindtap="onSelectBg"
+      ></view>
+    </view>
+  </view>
+
+  <!-- 操作：重置位置 + 下载 -->
+  <view class="ops" wx:if="{{hasImage}}">
+    <button class="btn-reset" bindtap="onReset">重置位置</button>
+    <button class="btn-download" bindtap="onDownload">{{mattingBusy ? '制作中…' : '下载原图高清'}}</button>
+  </view>
+
+  <!-- 制作中弹窗：抠图/合成期间遮罩，禁操作，直观反馈正在制作 -->
+  <view class="making-mask" wx:if="{{mattingBusy}}">
+    <view class="making-box">
+      <view class="making-spinner"></view>
+      <view class="making-text">制作中…</view>
+      <view class="making-sub">AI 抠图 + 合成高清，请稍候（首次需 5~15 秒）</view>
+    </view>
+  </view>
+</view>

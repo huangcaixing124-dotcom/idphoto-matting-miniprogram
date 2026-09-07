@@ -1,0 +1,206 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #1a1d26;
+  overflow: hidden;
+}
+
+/* 内容区：占工具栏上方剩余空间，内部垂直居中画布 + 提示，不因工具栏增减而滚动/偏移 */
+.canvas-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24rpx;
+}
+
+/* 画布容器：居中显示，尺寸由规格宽高比决定 */
+.canvas-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #242833;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  max-width: 100%;
+}
+.edit-canvas {
+  background: #000;
+  border-radius: 8rpx;
+  display: block;
+}
+
+.tips {
+  text-align: center;
+  color: #8a94a6;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+  padding: 0 24rpx;
+}
+
+/* 底部操作栏：普通文档流块(非 fixed)，高度自适应内容，不盖内容区 */
+.toolbar {
+  flex-shrink: 0;
+  position: relative;
+  background: #fff;
+  padding: 20rpx 32rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.row-label {
+  font-size: 26rpx;
+  color: #1f2330;
+  width: 100rpx;
+  flex-shrink: 0;
+}
+
+/* 规格横滑 */
+.spec-scroll {
+  white-space: nowrap;
+  flex: 1;
+}
+.spec-chip {
+  display: inline-block;
+  padding: 12rpx 26rpx;
+  background: #f0f1f5;
+  color: #1f2330;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  margin-right: 14rpx;
+}
+.spec-chip.active {
+  background: #1a73e8;
+  color: #fff;
+}
+
+/* 当前规格比例提示 */
+.ratio-tip {
+  font-size: 24rpx;
+  color: #8a94a6;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+
+/* 色块选择 */
+.color-swatch {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 4rpx solid #f0f1f5;
+  flex-shrink: 0;
+}
+.color-swatch.active {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 4rpx rgba(26, 115, 232, 0.25);
+}
+
+/* 操作按钮 */
+.actions {
+  margin-top: 8rpx;
+}
+/* 保存用途提示（日常已够） */
+.save-hint {
+  font-size: 22rpx;
+  color: #8a94a6;
+  margin: 12rpx 4rpx 0;
+  line-height: 1.5;
+}
+.btn-ghost {
+  flex: 1;
+  background: #f0f1f5;
+  color: #1f2330;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+.btn-ghost.reselect {
+  width: 100%;
+  flex: none;
+  margin-right: 0;
+}
+.btn-primary-small {
+  flex: 2;
+  background: #1a73e8;
+  color: #fff;
+  border-radius: 16rpx;
+  height: 88rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+/* 保存按钮内两行：主标题 + 副说明 */
+.save-main {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.save-sub {
+  font-size: 20rpx;
+  opacity: 0.85;
+}
+button::after {
+  border: none;
+}
+
+
+/* ===== AI 抠图按钮 ===== */
+.ai-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10rpx;
+  padding-bottom: 10rpx;
+  border-top: 1rpx solid #eef0f4;
+  padding-top: 18rpx;
+  margin-top: 6rpx;
+}
+.btn-ai {
+  width: 100%;
+  margin: 4rpx 0 0 0;
+  padding: 22rpx 28rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #4f8cff 0%, #667eea 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 30rpx rgba(79, 140, 255, 0.30);
+  border: none;
+}
+.btn-ai[disabled] {
+  opacity: 0.75;
+  background: #8aa9ff;
+}
+.btn-ai::after { border: none; }
+.ai-text { display: inline-block; }
+.ai-tip {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #8a94a6;   /* 白底工具栏，用深灰保证可读 */
+  line-height: 1.5;
+  padding-left: 4rpx;
+}
+.ai-tip.ok { color: #2e7d32; font-weight: 600; }

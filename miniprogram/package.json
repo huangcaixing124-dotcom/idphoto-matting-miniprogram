@@ -1,0 +1,7 @@
+{
+  "name": "idphoto-toolbox-miniprogram",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地证件照工具箱小程序端。所有第三方库都是本地文件引入（ort.min.js、utils/idphoto.js、utils/modnet.js、utils/matting.js），不依赖任何 npm 构建。",
+  "dependencies": {}
+}

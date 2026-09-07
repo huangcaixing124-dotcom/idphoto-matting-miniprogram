@@ -1,0 +1,25 @@
+/* pages/regress/regress.wxss —— 精简回归页样式 */
+.page { padding: 24rpx; }
+.top-actions { display: flex; gap: 20rpx; margin-bottom: 24rpx; }
+.btn { flex: 1; font-size: 30rpx; background: #f0f2f5; border-radius: 12rpx; line-height: 2.6; }
+.btn.primary { background: #1a73e8; color: #fff; }
+.btn.download { width: 100%; margin-top: 24rpx; background: #16a34a; color: #fff; font-weight: 600; }
+.btn[disabled] { opacity: 0.5; }
+
+.stage {
+  position: relative; width: 100%; height: 780rpx;
+  border-radius: 16rpx; overflow: hidden; background: #eef1f5;
+  display: flex; align-items: center; justify-content: center;
+}
+.stage-img { width: 100%; height: 100%; }
+.stage-bg { position: absolute; inset: 0; }
+.stage-empty { color: #8a93a8; }
+.stage-err { position: absolute; bottom: 20rpx; left: 20rpx; right: 20rpx; color: #c73a2b; font-size: 26rpx; }
+
+.bg-row { display: flex; gap: 18rpx; margin-top: 24rpx; }
+.bg-chip {
+  width: 96rpx; height: 96rpx; border-radius: 16rpx; border: 4rpx solid transparent;
+  display: flex; align-items: flex-end; justify-content: center; font-size: 22rpx; color: rgba(0,0,0,0.65);
+}
+.bg-chip.active { border-color: #1a73e8; }
+.status { margin-top: 20rpx; color: #5a6478; font-size: 26rpx; }

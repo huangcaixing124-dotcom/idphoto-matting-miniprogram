@@ -1,0 +1,7 @@
+{
+  "name": "weapp-miniprogram-dummy",
+  "version": "1.0.0",
+  "description": "dummy package placeholder",
+  "main": "index.js",
+  "dependencies": {}
+}

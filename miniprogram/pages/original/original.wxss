@@ -1,0 +1,168 @@
+.page {
+  padding: 24rpx 32rpx 80rpx;
+  background: #f5f6fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 预览区 */
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.orig-canvas {
+  background: #e3e7ef;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+.preview-tip {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: #6b7280;
+}
+.tips {
+  padding: 80rpx 0;
+  text-align: center;
+  color: #8a94a6;
+  font-size: 28rpx;
+}
+
+/* 面板(规格/底色) */
+.panel {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+.panel-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1f2330;
+  margin-bottom: 16rpx;
+}
+.spec-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+.spec-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  margin-right: 16rpx;
+  background: #f2f4f8;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  color: #4b5563;
+  border: 2rpx solid transparent;
+}
+.spec-chip.active {
+  background: #eaf1fe;
+  color: #1a73e8;
+  border-color: #1a73e8;
+  font-weight: 600;
+}
+.ratio-tip {
+  margin-top: 14rpx;
+  font-size: 22rpx;
+  color: #8a94a6;
+}
+
+/* 底色色块（对齐常规页 edit 的色块方案：圆形·小尺寸·横向密集排列） */
+.color-row {
+  display: flex;
+  align-items: center;
+}
+.color-block {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 4rpx solid #f0f1f5;
+  flex-shrink: 0;
+}
+.color-block.active {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 4rpx rgba(26, 115, 232, 0.25);
+}
+
+/* 操作行：重置 + 下载 */
+.ops {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+.btn-reset {
+  flex-shrink: 0;
+  background: #fff;
+  color: #1a73e8;
+  border: 2rpx solid #1a73e8;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  padding: 24rpx 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-reset::after { border: none; }
+
+/* 下载按钮 */
+.btn-download {
+  flex: 1;
+  background: #1a73e8;
+  color: #fff;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  padding: 24rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-download::after {
+  border: none;
+}
+
+/* 制作中弹窗 */
+.making-mask {
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+.making-box {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 480rpx;
+}
+.making-spinner {
+  width: 64rpx;
+  height: 64rpx;
+  border: 6rpx solid #e3e7ef;
+  border-top-color: #1a73e8;
+  border-radius: 50%;
+  animation: making-rot 0.9s linear infinite;
+}
+@keyframes making-rot {
+  to { transform: rotate(360deg); }
+}
+.making-text {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f2330;
+}
+.making-sub {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #8a94a6;
+  text-align: center;
+  line-height: 1.5;
+}

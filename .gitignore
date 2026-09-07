@@ -1,0 +1,29 @@
+# 依赖
+node_modules/
+
+# 微信开发者工具本地配置（含个人 appid 等，不应公开）
+project.private.config.json
+*.local.json
+
+# 编译产物
+dist/
+build/
+
+# 缓存
+.DS_Store
+Thumbs.db
+*.log
+
+# 环境变量
+.env
+.env.*
+
+# 大模型文件（25MB+，不应进 git，通过云存储分发）
+*.onnx
+*.wasm
+
+# npm 锁文件（本项目无 npm 依赖，不需要）
+package-lock.json
+
+# 本地回退备份（不入库）
+*.bak_*

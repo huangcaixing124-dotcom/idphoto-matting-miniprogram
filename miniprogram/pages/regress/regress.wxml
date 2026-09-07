@@ -1,0 +1,32 @@
+<!-- pages/regress/regress.wxml —— 精简抠图回归页 -->
+<view class="page">
+  <view class="top-actions">
+    <button class="btn" bindtap="onChoose">1. 选择照片</button>
+    <button class="btn primary" bindtap="onMatting" disabled="{{!hasImage || mattingBusy}}">
+      {{mattingBusy ? '抠图中…' : '2. AI 抠图'}}
+    </button>
+  </view>
+
+  <view class="stage">
+    <!-- 未抠图：直接显示原图 -->
+    <image wx:if="{{hasImage && !mattingMode}}" class="stage-img" src="{{originalPath}}" mode="aspectFit" />
+    <!-- 抠图后：透明人像叠在可选底色上（image 支持 PNG alpha，直接看抠边效果） -->
+    <view wx:if="{{mattingMode}}" class="stage-bg" style="background:{{bgColors[bgIndex].rgb}}">
+      <image class="stage-img" src="{{resultPath}}" mode="aspectFit" />
+    </view>
+    <view wx:if="{{!hasImage}}" class="stage-empty">请先选择照片</view>
+    <view wx:if="{{mattingFailed && hasImage}}" class="stage-err">{{statusText}}</view>
+  </view>
+
+  <view class="bg-row" wx:if="{{mattingMode}}">
+    <view wx:for="{{bgColors}}" wx:key="name"
+          class="bg-chip {{bgIndex === index ? 'active' : ''}}"
+          style="background:{{item.rgb}}" data-idx="{{index}}" bindtap="onPickBg">
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <button wx:if="{{mattingMode}}" class="btn download" bindtap="onDownload">下载成片（{{bgColors[bgIndex].name}}底）</button>
+
+  <view class="status" wx:if="{{statusText && !mattingFailed}}">{{statusText}}</view>
+</view>

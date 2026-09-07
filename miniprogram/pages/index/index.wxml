@@ -1,0 +1,55 @@
+<view class="page">
+  <!-- 顶部横幅 -->
+  <view class="hero">
+    <view class="hero-title">本地证件照工具箱</view>
+    <view class="hero-sub">一键抠图 · 换底色 · 输出标准证件照尺寸</view>
+  </view>
+
+  <!-- 规格选择 -->
+  <view class="card">
+    <view class="card-title">常用规格</view>
+
+    <!-- 分类 Tab -->
+    <view class="group-tabs">
+      <view
+        wx:for="{{groups}}"
+        wx:key="id"
+        class="group-tab {{activeGroup === item.id ? 'active' : ''}}"
+        bindtap="onSwitchGroup"
+        data-id="{{item.id}}"
+      >{{item.name}}</view>
+    </view>
+
+    <!-- 当前分类的规格网格 -->
+    <view class="spec-grid">
+      <view
+        wx:for="{{displaySpecs}}"
+        wx:key="id"
+        class="spec-card {{selectedSpec === item.id ? 'active' : ''}}"
+        bindtap="onSelectSpec"
+        data-id="{{item.id}}"
+      >
+        <view class="spec-name">{{item.name}}</view>
+        <view class="spec-size">{{item.width}}×{{item.height}}</view>
+        <view class="spec-scene" wx:if="{{item.scene}}">{{item.scene}}</view>
+      </view>
+    </view>
+
+    <button class="btn-primary choose-btn" bindtap="onChooseImage">选照片开始</button>
+  </view>
+
+  <!-- 功能说明 -->
+  <view class="card">
+    <view class="card-title">支持功能</view>
+    <view class="func-row" wx:for="{{features}}" wx:key="title">
+      <view class="func-dot"></view>
+      <view class="func-text">
+        <text class="func-name">{{item.title}}</text>
+        <text class="func-sub">{{item.sub}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分享给好友（open-type=share 复用右上角分享文案） -->
+  <button class="btn-share" open-type="share">分享给好友</button>
+</view>

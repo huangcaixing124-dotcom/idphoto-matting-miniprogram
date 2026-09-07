@@ -1,0 +1,62 @@
+.page {
+  padding: 32rpx;
+  padding-bottom: 80rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80rpx 32rpx;
+}
+.empty-icon {
+  font-size: 72rpx;
+  margin-bottom: 20rpx;
+}
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+.empty-sub {
+  font-size: 26rpx;
+  color: #8a94a6;
+}
+
+.record-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx 32rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.record-main {
+  display: flex;
+  flex-direction: column;
+}
+.record-size {
+  font-size: 30rpx;
+  font-weight: 500;
+}
+.record-color,
+.record-hd {
+  font-size: 24rpx;
+  color: #8a94a6;
+  margin-top: 6rpx;
+}
+.record-time {
+  font-size: 24rpx;
+  color: #aab2c0;
+  flex-shrink: 0;
+  margin-left: 20rpx;
+}
+
+.clear-btn {
+  margin-top: 40rpx;
+  text-align: center;
+  color: #e05656;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  background: #fff;
+  border-radius: 16rpx;
+}
